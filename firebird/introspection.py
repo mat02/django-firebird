@@ -3,7 +3,13 @@ import warnings
 
 from django.utils import six
 from django.utils.encoding import force_str
-from django.utils.deprecation import RemovedInDjango21Warning
+
+import django
+if (django.VERSION[0]==2 and django.VERSION[1] < 1) or django.VERSION[0] < 2:
+    from django.utils.deprecation import RemovedInDjango21Warning
+else:
+    from django.utils.deprecation import RemovedInNextVersionWarning as RemovedInDjango21Warning
+
 from django.db.models.indexes import Index
 from django.db.backends.base.introspection import (
     BaseDatabaseIntrospection, FieldInfo, TableInfo,
